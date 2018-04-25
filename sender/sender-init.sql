@@ -1,3 +1,6 @@
+drop schema if exists erobot_sender_a;
+
+create schema erobot_sender_a DEFAULT CHARSET utf8mb4;
 
 drop table if exists erobot_sender_a.e_task;
 
@@ -13,5 +16,5 @@ create table erobot_sender_a.e_task
   attachment_name varchar(64)  null comment '附件名，无附件时为空',
 	attachment_path varchar(128) null comment '附件路径'
 )
-comment '任务' engine=InnoDB;
+comment '任务' engine=InnoDB DEFAULT CHARSET=utf8mb4;
 

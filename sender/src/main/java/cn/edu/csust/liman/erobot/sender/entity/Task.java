@@ -6,12 +6,19 @@ import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Task {
+    @NotNull
     private long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String cron;
+    @NotNull
     private Email email;
     private static final BeanUtil.LazyLoader<TaskTimer> TASK_TIMER = BeanUtil.getLazyLoader(TaskTimer.class);
     private static final Logger LOGGER = LoggerFactory.getLogger(Task.class);

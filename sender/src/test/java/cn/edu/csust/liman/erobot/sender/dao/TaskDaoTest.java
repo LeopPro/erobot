@@ -2,6 +2,7 @@ package cn.edu.csust.liman.erobot.sender.dao;
 
 import cn.edu.csust.liman.erobot.sender.entity.Task;
 import cn.edu.csust.liman.erobot.sender.entity.TaskTest;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@Transactional
-//@Rollback
+@Transactional
+@Rollback
 public class TaskDaoTest {
     @Autowired
     private TaskDao taskDao;
@@ -24,9 +25,11 @@ public class TaskDaoTest {
     public void insert() {
         Task task = TaskTest.buildTask();
         taskDao.insert(task);
+        Assert.assertEquals(task,taskDao.select(1));
     }
 
     @Test
     public void select() {
+
     }
 }

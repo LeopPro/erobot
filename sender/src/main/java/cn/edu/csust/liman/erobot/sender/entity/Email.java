@@ -4,13 +4,17 @@ import cn.edu.csust.liman.erobot.sender.component.EmailSender;
 import cn.edu.csust.liman.erobot.sender.util.BeanUtil;
 
 import javax.mail.MessagingException;
+import javax.validation.constraints.NotBlank;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class Email {
 
+    @NotBlank
     private String[] receivers;
+    @NotBlank
     private String subject;
+    @NotBlank
     private String content;
     private String attachmentPath;
     private String attachmentName;
@@ -24,6 +28,7 @@ public class Email {
         StringBuilder sb = new StringBuilder();
         for (String receiver : receivers) {
             sb.append(receiver);
+            sb.append(' ');
         }
         return sb.toString();
     }

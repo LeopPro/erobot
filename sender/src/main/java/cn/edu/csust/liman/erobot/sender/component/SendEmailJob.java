@@ -4,12 +4,8 @@ import cn.edu.csust.liman.erobot.sender.entity.Email;
 import cn.edu.csust.liman.erobot.sender.util.BeanUtil;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.mail.MessagingException;
 
 public class SendEmailJob implements Job {
     private static final Logger LOGGER = LoggerFactory.getLogger(SendEmailJob.class);
