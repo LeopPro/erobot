@@ -7,8 +7,10 @@ import java.util.List;
 
 @Mapper
 public interface TaskDao {
+    String E_TASK_TABLE = "e_task";
+
     @Insert({"insert into ",
-            "  e_task ",
+            E_TASK_TABLE,
             "  (id, name, cron, subject, content, receiver, attachment_name, attachment_path)",
             "VALUES ",
             "  (#{id}, #{name}, #{cron}, #{email.subject}, #{email.content}, #{email.receiver}, #{email.attachmentName}, #{email.attachmentPath})"})
@@ -23,7 +25,7 @@ public interface TaskDao {
             "  receiver,",
             "  attachment_name,",
             "  attachment_path",
-            "from e_task",
+            "from ", E_TASK_TABLE,
             "where id = #{id}"})
     @Results({@Result(column = "subject", property = "email.subject"),
             @Result(column = "content", property = "email.content"),
@@ -41,7 +43,7 @@ public interface TaskDao {
             "  receiver,",
             "  attachment_name,",
             "  attachment_path",
-            "from e_task"})
+            "from ", E_TASK_TABLE})
     @Results({@Result(column = "subject", property = "email.subject"),
             @Result(column = "content", property = "email.content"),
             @Result(column = "receiver", property = "email.receiver"),

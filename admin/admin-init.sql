@@ -1,3 +1,5 @@
+drop schema if exists erobot_admin;
+create schema erobot_admin;
 drop table if exists l_group_task;
 drop table if exists l_receiver_group;
 drop table if exists e_task;
