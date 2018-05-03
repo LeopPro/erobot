@@ -25,8 +25,8 @@ public class ReceiverService {
     }
 
     @GetMapping("/list")
-    public List<Receiver> list() {
-        return receiverDao.selectAll();
+    public Result list() {
+        return Result.ok(receiverDao.selectAll());
     }
 
     @GetMapping("/delete")

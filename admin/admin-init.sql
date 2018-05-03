@@ -110,20 +110,23 @@ create index l_group_task_e_task_id_fk
 
 create table l_receiver_group
 (
-  receiver_id bigint unsigned not null
-  comment '接收者Id',
-  group_id    bigint unsigned not null
-  comment '接收组Id',
-  constraint l_receiver_group_receiver_id_fk
-  foreign key (receiver_id) references e_receiver (id),
-  constraint l_receiver_group_group_id_fk
-  foreign key (group_id) references e_group (id)
+	receiver_id bigint unsigned not null comment '接收者Id',
+	group_id bigint unsigned not null comment '接收组Id',
+	constraint l_receiver_group_receiver_id_fk
+		foreign key (receiver_id) references e_receiver (id)
+			on delete cascade,
+	constraint l_receiver_group_group_id_fk
+		foreign key (group_id) references e_group (id)
+			on delete cascade
 )
-  comment '接收者与接收组连接表'
-  engine = InnoDB;
+comment '接收者与接收组连接表' engine=InnoDB
+;
 
 create index l_receiver_group_group_id_fk
-  on l_receiver_group (group_id);
+	on l_receiver_group (group_id)
+;
 
 create index l_receiver_group_receiver_id_fk
-  on l_receiver_group (receiver_id);
+	on l_receiver_group (receiver_id)
+;
+
