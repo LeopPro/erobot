@@ -2,7 +2,10 @@ package cn.edu.csust.liman.erobot.admin.dao;
 
 import cn.edu.csust.liman.erobot.admin.entity.Group;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 @org.apache.ibatis.annotations.Mapper
 public interface GroupDao extends Mapper<Group> {
@@ -16,4 +19,13 @@ public interface GroupDao extends Mapper<Group> {
             "</foreach >",
             "</script>"})
     void insertReceiverInGroup(Group group);
+
+    @Select({"select",
+            "  id,",
+            "  name,",
+            "  count(id) as receiverNumber",
+            "from e_group",
+            "  inner join l_receiver_group g on e_group.id = g.group_id",
+            "group by id"})
+    List<Group> selectAllWithReceiverNumber();
 }

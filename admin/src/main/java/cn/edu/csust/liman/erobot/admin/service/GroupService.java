@@ -31,6 +31,6 @@ public class GroupService {
 
     @GetMapping("/list")
     public Result list(){
-        return Result.ok(groupDao.selectAll());
+        return Result.ok(groupDao.selectAllWithReceiverNumber());
     }
 }

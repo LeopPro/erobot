@@ -20,6 +20,8 @@ public class Group {
     @NotNull
     @Transient
     private Long[] receiverId;
+    @Transient
+    private Integer receiverNumber;
 
     public String getName() {
         return name;
@@ -70,5 +72,13 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", receiverId=" + Arrays.toString(receiverId) +
                 '}';
+    }
+
+    public Integer getReceiverNumber() {
+        return receiverNumber;
+    }
+
+    public void setReceiverNumber(Integer receiverNumber) {
+        this.receiverNumber = receiverNumber;
     }
 }
