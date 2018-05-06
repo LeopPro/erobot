@@ -7,10 +7,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@MapperScan("cn.edu.csust.liman.erobot.admin.dao")
 @SpringBootApplication
 public class ErobotAdminApplication extends WebMvcConfigurerAdapter {
     public static void main(String[] args) {

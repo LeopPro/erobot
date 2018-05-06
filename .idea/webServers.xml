@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9daf4782-1ca5-41c1-ae2b-ffbcdc638f32" name="leop.pro" url="http://leop.pro">
+        <fileTransfer host="leop.pro" port="8557" privateKey="$USER_HOME$/SSH-Key/KLLSo@ay-01" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="8557" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

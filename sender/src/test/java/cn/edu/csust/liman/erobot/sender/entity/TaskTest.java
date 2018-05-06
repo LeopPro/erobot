@@ -16,7 +16,7 @@ public class TaskTest {
         task.setId(1);
         task.setEmail(EmailTest.buildEmail());
         task.setName("哈哈哈");
-        task.setCron("0/10 * * * * ? ");
+        task.setCron("6 * * * * ? ");
         System.out.println(task);
         return task;
     }
@@ -24,9 +24,9 @@ public class TaskTest {
     @Test
     public void tastStartTest() throws SchedulerException, InterruptedException {
         Task task = buildTask();
-        task.start();
-        Thread.sleep(15*1000);
-        task.shutdown();
-        Thread.sleep(15*1000);
+//        task.start();
+//        Thread.sleep(15*1000);
+//        task.shutdown();
+//        Thread.sleep(15*1000);
     }
 }
