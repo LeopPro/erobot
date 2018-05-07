@@ -10,7 +10,6 @@ import java.util.Objects;
 
 public class Email {
 
-    @NotBlank
     private String[] receivers;
     @NotBlank
     private String subject;

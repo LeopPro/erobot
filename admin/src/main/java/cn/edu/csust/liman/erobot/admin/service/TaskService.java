@@ -34,6 +34,7 @@ public class TaskService {
         task.setSenderIp(sender.getAddr());
         task.setFailureTimes(0);
         taskDao.insert(task);
+        taskDao.insertGroupInTask(task);
         taskManager.addTask(task.getId());
         return Result.ok();
     }

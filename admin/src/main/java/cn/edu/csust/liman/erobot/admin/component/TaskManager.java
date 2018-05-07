@@ -1,9 +1,15 @@
 package cn.edu.csust.liman.erobot.admin.component;
 
+import cn.edu.csust.liman.erobot.admin.dao.TaskDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class TaskManager {
+    @Autowired
+    private TaskDao taskDao;
     public void updateReceiver(Long id) {
 
     }
@@ -29,7 +35,7 @@ public class TaskManager {
     }
 
     public void addTask(Long id) {
-        System.out.println(id);
-
+        Map<String, Object> executableTask = taskDao.getExecutableTask(id);
+        System.out.println(executableTask);
     }
 }

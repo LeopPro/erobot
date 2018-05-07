@@ -10,7 +10,7 @@ Cache-Control: no-cache
 
 ###
 
-GET http://{{host}}:{{port}}/task/delete?id=1
+GET http://{{host}}:{{port}}/task/delete?id=2
 Accept: */*
 Cache-Control: no-cache
 
