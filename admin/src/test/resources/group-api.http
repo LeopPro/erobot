@@ -1,0 +1,23 @@
+POST http://{{host}}:{{port}}/group/add?name=gaa&receiverId=3&receiverId=4
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://{{host}}:{{port}}/group/add?name=gcc&receiverId=4&receiverId=5
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/group/list
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/group/delete?id=3
+Accept: */*
+Cache-Control: no-cache
+
+###

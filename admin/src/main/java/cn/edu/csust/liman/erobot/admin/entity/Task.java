@@ -24,7 +24,10 @@ public class Task {
     @Cron
     private String cron;
     @NotNull
-    private Long senderId;
+    @Transient
+    private Integer senderId;
+    @Null
+    private String senderIp;
     @NotNull
     private Long[] groupId;
     @Null
@@ -98,11 +101,11 @@ public class Task {
         this.cron = cron;
     }
 
-    public Long getSenderId() {
+    public Integer getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(Long senderId) {
+    public void setSenderId(Integer senderId) {
         this.senderId = senderId;
     }
 
@@ -120,5 +123,13 @@ public class Task {
 
     public void setFailureTimes(Integer failureTimes) {
         this.failureTimes = failureTimes;
+    }
+
+    public String getSenderIp() {
+        return senderIp;
+    }
+
+    public void setSenderIp(String senderIp) {
+        this.senderIp = senderIp;
     }
 }

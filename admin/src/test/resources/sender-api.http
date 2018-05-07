@@ -1,0 +1,17 @@
+GET http://{{host}}:{{port}}/sender/heartbeat
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/sender/list
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/sender/get?id=0
+Accept: */*
+Cache-Control: no-cache
+
+###

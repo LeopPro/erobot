@@ -1,5 +1,5 @@
-drop schema if exists erobot_admin;
-create schema erobot_admin;
+-- drop schema if exists erobot_admin;
+-- create schema erobot_admin;
 drop table if exists l_group_task;
 drop table if exists l_receiver_group;
 drop table if exists e_task;
@@ -73,7 +73,7 @@ create table e_task
   comment '任务名',
   cron          varchar(64)     not null
   comment '任务Cron',
-  sender_ip     binary(4)       null
+  sender_ip     varchar(15)     null
   comment '发送器ip',
   message_id    bigint unsigned not null
   comment '信息id',

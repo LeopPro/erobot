@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageService {
     @Autowired
     private MessageDao messageDao;
+
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Result add(@Validated Message message){
         messageDao.insert(message);

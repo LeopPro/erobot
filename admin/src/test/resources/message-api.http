@@ -1,0 +1,23 @@
+POST http://{{host}}:{{port}}/message/add?subject=maa&content=aabbccdd
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://{{host}}:{{port}}/message/add?subject=mbb&content=bbccddee
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/message/list
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/message/delete?id=1
+Accept: */*
+Cache-Control: no-cache
+
+###

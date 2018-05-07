@@ -1,0 +1,18 @@
+POST http://{{host}}:{{port}}/task/add?name=taaa&messageId=2&cron=15 * * * * ? *&senderId=0&groupId=2&groupId=4
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/task/list
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/task/delete?id=1
+Accept: */*
+Cache-Control: no-cache
+
+###
+

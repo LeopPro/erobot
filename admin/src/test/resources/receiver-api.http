@@ -1,0 +1,29 @@
+POST http://{{host}}:{{port}}/receiver/add?name=aa&email=aa@email.com
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://{{host}}:{{port}}/receiver/add?name=bb&email=bb@email.com
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://{{host}}:{{port}}/receiver/add?name=cc&email=cc@email.com
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/receiver/list
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/receiver/delete?id=2
+Accept: */*
+Cache-Control: no-cache
+
+###
