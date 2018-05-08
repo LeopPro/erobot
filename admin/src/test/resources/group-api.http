@@ -1,4 +1,4 @@
-POST http://{{host}}:{{port}}/group/add?name=gaa&receiverId=3&receiverId=4
+POST http://{{host}}:{{port}}/group/add?name=gbb&receiverId=2&receiverId=3
 Accept: */*
 Cache-Control: no-cache
 

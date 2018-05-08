@@ -1,4 +1,4 @@
-POST http://{{host}}:{{port}}/receiver/add?name=aa&email=aa@email.com
+POST http://{{host}}:{{port}}/receiver/add?name=赵rf&email=591075865@qq.com
 Accept: */*
 Cache-Control: no-cache
 

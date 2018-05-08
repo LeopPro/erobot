@@ -1,4 +1,4 @@
-POST http://{{host}}:{{port}}/message/add?subject=maa&content=aabbccdd
+POST http://{{host}}:{{port}}/message/add?subject=测试邮件&content=HelloWorld！
 Accept: */*
 Cache-Control: no-cache
 
