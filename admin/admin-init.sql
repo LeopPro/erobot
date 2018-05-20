@@ -52,6 +52,7 @@ create table e_task
 	failure_times int unsigned not null comment '失败次数',
 	constraint e_task_e_message_id_fk
 		foreign key (message_id) references e_message (id)
+			on delete cascade
 )
 comment '任务' engine=InnoDB
 ;
@@ -67,9 +68,11 @@ create table l_group_task
 	constraint l_group_task_uq
 		unique (group_id, task_id),
 	constraint l_group_task_e_group_id_fk
-		foreign key (group_id) references e_group (id),
+		foreign key (group_id) references e_group (id)
+			on delete cascade,
 	constraint l_group_task_e_task_id_fk
 		foreign key (task_id) references e_task (id)
+			on delete cascade
 )
 comment '任务与发送组连接表' engine=InnoDB
 ;
