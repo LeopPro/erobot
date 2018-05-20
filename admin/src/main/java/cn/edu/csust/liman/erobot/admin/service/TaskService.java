@@ -3,14 +3,13 @@ package cn.edu.csust.liman.erobot.admin.service;
 import cn.edu.csust.liman.erobot.admin.component.SenderManager;
 import cn.edu.csust.liman.erobot.admin.component.TaskManager;
 import cn.edu.csust.liman.erobot.admin.dao.TaskDao;
+import cn.edu.csust.liman.erobot.admin.entity.Group;
 import cn.edu.csust.liman.erobot.admin.entity.Result;
 import cn.edu.csust.liman.erobot.admin.entity.Sender;
 import cn.edu.csust.liman.erobot.admin.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,5 +56,40 @@ public class TaskService {
             }
         }
         return Result.ok(tasks);
+    }
+    @PostMapping("/set")
+    public Result set(@Validated Task task) {
+        if (task.getId() == null) {
+            return Result.err("id is null");
+        }
+        Integer senderId = task.getSenderId();
+        Sender sender = senderManager.getById(senderId);
+        if (sender == null || !sender.isAlive()) {
+            return Result.err("sender not alive");
+        }
+        task.setSenderIp(sender.getAddr());
+        task.setFailureTimes(0);
+        int changeRow = taskDao.updateByPrimaryKey(task);
+        if (changeRow == 0) {
+            return Result.err("task not exist");
+        }
+        taskDao.updateGroupInTask(task);
+        return Result.ok();
+    }
+
+    @GetMapping("/get")
+    public Result get(long id) {
+        Task task = taskDao.selectByPrimaryKey(id);
+        if (task == null) {
+            return Result.err("task not exist");
+        }
+        task.setGroupId(taskDao.selectAllGroupIdByTaskId(id));
+        Sender sender = senderManager.getByAddr(task.getSenderIp());
+        if (sender == null) {
+            task.setSenderId(null);
+        } else {
+            task.setSenderId(sender.getId());
+        }
+        return Result.ok(task);
     }
 }

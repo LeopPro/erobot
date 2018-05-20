@@ -27,3 +27,9 @@ Accept: */*
 Cache-Control: no-cache
 
 ###
+
+POST http://{{host}}:{{port}}/receiver/set?id=6&email=i@leop.pro55&name=abc99
+Accept: */*
+Cache-Control: no-cache
+
+###

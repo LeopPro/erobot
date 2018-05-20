@@ -21,3 +21,9 @@ Accept: */*
 Cache-Control: no-cache
 
 ###
+
+POST http://{{host}}:{{port}}/message/set?id=1&subject=测试邮件666&content=HelloWorld！777
+Accept: */*
+Cache-Control: no-cache
+
+###

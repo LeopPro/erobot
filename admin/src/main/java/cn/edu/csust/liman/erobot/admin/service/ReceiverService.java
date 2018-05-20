@@ -35,4 +35,13 @@ public class ReceiverService {
         receiverDao.deleteByPrimaryKey(id);
         return Result.ok();
     }
+
+    @PostMapping("/set")
+    public Result set(@Validated Receiver receiver) {
+        if (receiver.getId() == null) {
+            return Result.err("id is null");
+        }
+        receiverDao.updateByPrimaryKey(receiver);
+        return Result.ok();
+    }
 }

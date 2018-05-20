@@ -50,7 +50,7 @@ public class TaskTimer implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         List<Task> tasks = taskDao.listAll();
         for (Task task : tasks) {
-            task.start();
+            this.start(task);
         }
     }
 }

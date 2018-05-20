@@ -4,7 +4,7 @@ Cache-Control: no-cache
 
 ###
 
-GET http://{{host}}:{{port}}/sender/list
+GET http://{{host}}:8080/sender/list
 Accept: */*
 Cache-Control: no-cache
 

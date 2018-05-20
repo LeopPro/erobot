@@ -1,10 +1,10 @@
-POST http://{{host}}:{{port}}/task/add?name=测试任务&messageId=1&cron=30 * * * * ? *&senderId=0&groupId=1&groupId=2&groupId=3
+POST http://{{host}}:8081/task/add?name=测试任务&messageId=12&cron=30 * * * * ? 2016&senderId=0&groupId=1&groupId=2
 Accept: */*
 Cache-Control: no-cache
 
 ###
 
-GET http://{{host}}:{{port}}/task/list
+GET http://{{host}}:8081/task/list
 Accept: */*
 Cache-Control: no-cache
 

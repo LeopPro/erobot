@@ -4,6 +4,7 @@ import cn.edu.csust.liman.erobot.admin.entity.Task;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Map;
@@ -49,5 +50,22 @@ public interface TaskDao extends Mapper<Task> {
             "       group by e_receiver.id) as a"})
     Map<String, Object> getExecutableTask(@Param("id") Long id);
 
+    @Update({"<script>",
+            "delete from l_group_task",
+            "where task_id = #{id}",
+            "      and group_id not in",
+            "(",
+            "<foreach collection =\"groupId\" item=\"item\" separator =\",\">",
+            "    #{item}",
+            "</foreach >",
+            ");",
+            "insert ignore into l_group_task (group_id, task_id) VALUES",
+            "<foreach collection =\"groupId\" item=\"item\" separator =\",\">",
+            "    (#{item}, #{id})",
+            "</foreach >;",
+            "</script>"})
+    void updateGroupInTask(Task task);
 
+    @Select({"select group_id from l_group_task where task_id = #{taskId}"})
+    Long[] selectAllGroupIdByTaskId(long id);
 }

@@ -16,6 +16,12 @@ Cache-Control: no-cache
 
 ###
 
+GET http://{{host}}:{{port}}/group/get?id=11
+Accept: */*
+Cache-Control: no-cache
+
+###
+
 GET http://{{host}}:{{port}}/group/delete?id=3
 Accept: */*
 Cache-Control: no-cache
