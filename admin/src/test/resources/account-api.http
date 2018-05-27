@@ -1,0 +1,24 @@
+POST http://{{host}}:{{port}}/account/add?username=testman2&password=666777
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://{{host}}:{{port}}/account/set?id=7&username=admin111&password=666777
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://{{host}}:{{port}}/login?username=testman02&password=6667770
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://{{host}}:{{port}}/account/list
+Accept: */*
+Cache-Control: no-cache
+
+###
+

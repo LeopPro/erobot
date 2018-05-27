@@ -18,15 +18,24 @@ public class TaskService {
         
     }
 
-    @PostMapping("/add")
-    public void add(@Validated Task task){
-        taskDao.insert(task);
+    @PostMapping("/receive")
+    public void receive(@Validated Task task){
+        Task taskFromDb = taskDao.getById(task.getId());
+        if(taskFromDb != null){
+            taskDao.update(task);
+            task.shutdown();
+        }else{
+            taskDao.insert(task);
+        }
         task.start();
     }
 
     @GetMapping("/delete")
-    public void delete(){
-
+    public void delete(long id){
+        Task task = new Task();
+        task.setId(id);
+        task.shutdown();
+        taskDao.delete(id);
     }
 
 }

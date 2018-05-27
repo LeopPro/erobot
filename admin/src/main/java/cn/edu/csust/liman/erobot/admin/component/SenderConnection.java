@@ -1,5 +1,6 @@
 package cn.edu.csust.liman.erobot.admin.component;
 
+import cn.edu.csust.liman.erobot.admin.entity.Task;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,12 +27,24 @@ public class SenderConnection {
 //                .add("email.attachmentPath", (String) email.get("attachmentPath"))
                 .build();
         Request request = new Request.Builder()
-                .url(String.format("http://%s:%d/task/add", task.get("sender_ip"), PORT))
+                .url(String.format("http://%s:%d/task/receive", task.get("sender_ip"), PORT))
                 .post(formBody)
                 .build();
         Response response = HTTP_CLIENT.newCall(request).execute();
         if (response.code() != 200) {
             throw new IOException("task send error");
+        }
+    }
+
+    public void deleteTask(Task task) throws IOException {
+        final String url = String.format("http://%s:%d/task/delete?id=%d", task.getSenderIp(), PORT, task.getId());
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = HTTP_CLIENT.newCall(request).execute();
+        int code = response.code();
+        if (code != 200) {
+            throw new IOException("heartbeat fail");
         }
     }
 }

@@ -50,4 +50,37 @@ public interface TaskDao {
             @Result(column = "attachment_name", property = "email.attachmentName"),
             @Result(column = "attachment_path", property = "email.attachmentPath")})
     List<Task> listAll();
+
+
+    @Select({"select",
+            "  id,",
+            "  name,",
+            "  cron,",
+            "  subject,",
+            "  content,",
+            "  receiver,",
+            "  attachment_name,",
+            "  attachment_path",
+            "from ", E_TASK_TABLE,
+            "where id = #{id}"})
+    @Results({@Result(column = "subject", property = "email.subject"),
+            @Result(column = "content", property = "email.content"),
+            @Result(column = "receiver", property = "email.receiver"),
+            @Result(column = "attachment_name", property = "email.attachmentName"),
+            @Result(column = "attachment_path", property = "email.attachmentPath")})
+    Task getById(long id);
+
+    @Update({"update ", E_TASK_TABLE,
+            "set name          = #{name},",
+            "  cron            = #{cron},",
+            "  subject         = #{subject},",
+            "  content         = #{content},",
+            "  receiver        = #{receiver},",
+            "  attachment_name = #{attachmentName},",
+            "  attachment_path = #{attachmentPath}",
+            "where id = #{is}"})
+    void update(Task task);
+
+    @Delete({"delete from", E_TASK_TABLE, " where id = #{id}"})
+    void delete(long id);
 }

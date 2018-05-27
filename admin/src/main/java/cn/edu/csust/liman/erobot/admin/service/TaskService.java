@@ -3,7 +3,6 @@ package cn.edu.csust.liman.erobot.admin.service;
 import cn.edu.csust.liman.erobot.admin.component.SenderManager;
 import cn.edu.csust.liman.erobot.admin.component.TaskManager;
 import cn.edu.csust.liman.erobot.admin.dao.TaskDao;
-import cn.edu.csust.liman.erobot.admin.entity.Group;
 import cn.edu.csust.liman.erobot.admin.entity.Result;
 import cn.edu.csust.liman.erobot.admin.entity.Sender;
 import cn.edu.csust.liman.erobot.admin.entity.Task;
@@ -34,12 +33,14 @@ public class TaskService {
         task.setFailureTimes(0);
         taskDao.insert(task);
         taskDao.insertGroupInTask(task);
-        taskManager.addTask(task.getId());
+        taskManager.flushTask(task.getId());
         return Result.ok();
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public Result delete(Long id) {
+        Task task = taskDao.selectByPrimaryKey(id);
+        taskManager.deleteTask(task);
         taskDao.deleteByPrimaryKey(id);
         return Result.ok();
     }

@@ -5,7 +5,7 @@ create table e_account
 		primary key,
 	username varchar(64) not null comment '用户名',
 	password binary(64) not null comment '密码Hash值',
-	salt bigint not null comment '盐值'
+	salt binary(4) not null comment '盐值'
 )
 comment '管理员帐号' engine=InnoDB
 ;
