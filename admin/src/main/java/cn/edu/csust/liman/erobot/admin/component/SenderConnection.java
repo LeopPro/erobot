@@ -5,6 +5,7 @@ import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -16,16 +17,20 @@ public class SenderConnection {
 
     public void sendTask(Map<String, Object> task) throws IOException {
         Map<String, Object> email = (Map<String, Object>) task.get("email");
-        FormBody formBody = new FormBody.Builder()
+        FormBody.Builder builder = new FormBody.Builder()
                 .add("id", String.valueOf(task.get("id")))
                 .add("name", (String) task.get("name"))
                 .add("cron", (String) task.get("cron"))
                 .add("email.subject", (String) email.get("subject"))
                 .add("email.content", (String) email.get("content"))
-                .add("email.receiver", (String) email.get("receiver"))
-//                .add("email.attachmentName", (String) email.get("attachmentName"))
-//                .add("email.attachmentPath", (String) email.get("attachmentPath"))
-                .build();
+                .add("email.receiver", (String) email.get("receiver"));
+        String attachmentName = (String) email.get("attachmentName");
+        if (attachmentName != null) {
+            builder.add("email.attachmentName", (String) email.get("attachmentName"))
+                    .add("email.attachmentPath", (String) email.get("attachmentPath"));
+            sendAttachment((String) task.get("sender_ip"), attachmentName);
+        }
+        FormBody formBody = builder.build();
         Request request = new Request.Builder()
                 .url(String.format("http://%s:%d/task/receive", task.get("sender_ip"), PORT))
                 .post(formBody)
@@ -45,6 +50,21 @@ public class SenderConnection {
         int code = response.code();
         if (code != 200) {
             throw new IOException("heartbeat fail");
+        }
+    }
+
+    public void sendAttachment(String senderIp, String attachmentPath) {
+        RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), new File(attachmentPath));
+        RequestBody requestBody = new MultipartBody.Builder().addFormDataPart("file", attachmentPath, fileBody).build();
+
+        Request requestPostFile = new Request.Builder()
+                .url(String.format("http://%s:%d/task/attachment", senderIp, PORT))
+                .post(requestBody)
+                .build();
+        try {
+            HTTP_CLIENT.newCall(requestPostFile).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

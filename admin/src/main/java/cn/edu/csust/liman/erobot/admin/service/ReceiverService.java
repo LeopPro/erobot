@@ -1,5 +1,6 @@
 package cn.edu.csust.liman.erobot.admin.service;
 
+import cn.edu.csust.liman.erobot.admin.component.TaskManager;
 import cn.edu.csust.liman.erobot.admin.dao.ReceiverDao;
 import cn.edu.csust.liman.erobot.admin.entity.Receiver;
 import cn.edu.csust.liman.erobot.admin.entity.Result;
@@ -17,6 +18,8 @@ import java.util.List;
 public class ReceiverService {
     @Autowired
     private ReceiverDao receiverDao;
+    @Autowired
+    private TaskManager taskManager;
 
     @PostMapping("/add")
     public Result add(@Validated Receiver receiver) {
@@ -31,8 +34,8 @@ public class ReceiverService {
 
     @GetMapping("/delete")
     public Result delete(@RequestParam("id") long id) {
-        System.out.println(id);
         receiverDao.deleteByPrimaryKey(id);
+        taskManager.change();
         return Result.ok();
     }
 
@@ -42,6 +45,7 @@ public class ReceiverService {
             return Result.err("id is null");
         }
         receiverDao.updateByPrimaryKey(receiver);
+        taskManager.change();
         return Result.ok();
     }
 }

@@ -76,6 +76,7 @@ public class TaskService {
             return Result.err("task not exist");
         }
         taskDao.updateGroupInTask(task);
+        taskManager.flushTask(task.getId());
         return Result.ok();
     }
 

@@ -1,5 +1,6 @@
 package cn.edu.csust.liman.erobot.admin.service;
 
+import cn.edu.csust.liman.erobot.admin.component.TaskManager;
 import cn.edu.csust.liman.erobot.admin.dao.GroupDao;
 import cn.edu.csust.liman.erobot.admin.entity.Group;
 import cn.edu.csust.liman.erobot.admin.entity.Result;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class GroupService {
     @Autowired
     private GroupDao groupDao;
+    @Autowired
+    private TaskManager taskManager;
 
     @PostMapping("/add")
     public Result add(@Validated Group group) {
@@ -26,6 +29,7 @@ public class GroupService {
     @GetMapping("/delete")
     public Result delete(@RequestParam("id") Long id) {
         groupDao.deleteByPrimaryKey(id);
+        taskManager.change();
         return Result.ok();
     }
 
@@ -55,6 +59,7 @@ public class GroupService {
             return Result.err("group not exist");
         }
         groupDao.updateReceiverInGroup(group);
+        taskManager.change();
         return Result.ok();
     }
 }
