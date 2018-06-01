@@ -30,7 +30,7 @@ public class TaskService {
             return Result.err("sender not alive");
         }
         task.setSenderIp(sender.getAddr());
-        task.setFailureTimes(0);
+        task.setFailureTimes(sender.getErrorNumber());
         taskDao.insert(task);
         taskDao.insertGroupInTask(task);
         taskManager.flushTask(task.getId());
@@ -58,6 +58,7 @@ public class TaskService {
         }
         return Result.ok(tasks);
     }
+
     @PostMapping("/set")
     public Result set(@Validated Task task) {
         if (task.getId() == null) {

@@ -33,4 +33,17 @@ public class AdminConnection {
         }
     }
 
+    public void sendError() throws IOException {
+
+        final String url = String.format("%s://%s:%s/sender/error", protocol, adminAddr, adminPort);
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = HTTP_CLIENT.newCall(request).execute();
+        int code = response.code();
+        if (code != 200) {
+            throw new IOException("heartbeat fail");
+        }
+    }
+
 }

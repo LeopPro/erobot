@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 public class LoginService {
     @Autowired
@@ -16,11 +18,16 @@ public class LoginService {
 
     @PostMapping("/login")
     public Result login(@RequestParam("username") String username,
-                        @RequestParam("password") byte[] password) {
+                        @RequestParam("password") byte[] password,
+                        HttpSession session) {
+        if (username == null || username.length() == 0) {
+            return Result.err("用户名或密码错误");
+        }
         Account account = new Account();
         account.setUsername(username);
         account = accountDao.selectOne(account);
         if (account != null && account.verifyPassword(password)) {
+            session.setAttribute("account", username);
             return Result.ok();
         } else {
             return Result.err("用户名或密码错误");
@@ -28,7 +35,8 @@ public class LoginService {
     }
 
     @GetMapping("/logout")
-    public Result logout() {
+    public Result logout(HttpSession session) {
+        session.invalidate();
         return Result.ok();
     }
 }

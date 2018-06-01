@@ -11,6 +11,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @MapperScan("cn.edu.csust.liman.erobot.admin.dao")
 @SpringBootApplication
@@ -24,8 +26,15 @@ public class ErobotAdminApplication extends WebMvcConfigurerAdapter {
         super.addInterceptors(registry);
         registry.addInterceptor(new HandlerInterceptor() {
             @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                response.setHeader("Access-Control-Allow-origin","*");
+            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+                response.setHeader("Access-Control-Allow-origin", "*");
+//                if (!"/login".equals(request.getRequestURI())) {
+//                    HttpSession session = request.getSession();
+//                    String accountName = (String) session.getAttribute("account");
+//                    if (accountName == null) {
+//                        return false;
+//                    }
+//                }
                 return true;
             }
 

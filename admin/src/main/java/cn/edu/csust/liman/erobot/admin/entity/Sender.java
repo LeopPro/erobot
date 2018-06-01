@@ -8,6 +8,7 @@ public class Sender {
     private Integer id;
     private String addr;
     private long heartbeatTime;
+    private Integer errorNumber = 0;
 
     public Sender(String remoteAddr) {
         this.addr = remoteAddr;
@@ -39,4 +40,11 @@ public class Sender {
         return System.currentTimeMillis() - this.heartbeatTime < TIME_OUT;
     }
 
+    public void countError() {
+        errorNumber++;
+    }
+
+    public Integer getErrorNumber() {
+        return errorNumber;
+    }
 }

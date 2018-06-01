@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TaskDao extends Mapper<Task> {
@@ -68,4 +69,23 @@ public interface TaskDao extends Mapper<Task> {
 
     @Select({"select group_id from l_group_task where task_id = #{taskId}"})
     Long[] selectAllGroupIdByTaskId(long id);
+
+
+    @Select({" select",
+            "         e_task.id,",
+            "         e_task.name,",
+            "         e_task.cron,",
+            "         e_task.sender_ip,",
+            "         e_message.subject,",
+            "         e_message.content,",
+            "         e_message.attachment_name,",
+            "         e_message.attachment_path,",
+            "         GROUP_CONCAT(email separator ' ') as 'email.receiver'",
+            "       from e_task",
+            "         inner join e_message on e_task.message_id = e_message.id",
+            "         inner join l_group_task on e_task.id = l_group_task.task_id",
+            "         inner join l_receiver_group on l_group_task.group_id = l_receiver_group.group_id",
+            "         inner join e_receiver on l_receiver_group.receiver_id = e_receiver.id",
+            "     group by id"})
+    List<Map<String, Object>> selectAllExecutableTask();
 }

@@ -10,7 +10,7 @@ Cache-Control: no-cache
 
 ###
 
-POST http://{{host}}:{{port}}/login?username=testman02&password=6667770
+POST http://{{host}}:{{port}}/login?username=z10&password=666
 Accept: */*
 Cache-Control: no-cache
 
