@@ -16,6 +16,9 @@ public class SenderConnection {
     private final static int PORT = 8082;
 
     public void sendTask(Map<String, Object> task) throws IOException {
+        if (task == null) {
+            return;
+        }
         Map<String, Object> email = (Map<String, Object>) task.get("email");
         FormBody.Builder builder = new FormBody.Builder()
                 .add("id", String.valueOf(task.get("id")))
@@ -28,7 +31,7 @@ public class SenderConnection {
         if (attachmentName != null) {
             builder.add("email.attachmentName", (String) email.get("attachmentName"))
                     .add("email.attachmentPath", (String) email.get("attachmentPath"));
-            sendAttachment((String) task.get("sender_ip"), attachmentName);
+            sendAttachment((String) task.get("sender_ip"), (String) email.get("attachmentPath"));
         }
         FormBody formBody = builder.build();
         Request request = new Request.Builder()
@@ -36,6 +39,7 @@ public class SenderConnection {
                 .post(formBody)
                 .build();
         Response response = HTTP_CLIENT.newCall(request).execute();
+        response.close();
         if (response.code() != 200) {
             throw new IOException("task send error");
         }
@@ -48,13 +52,14 @@ public class SenderConnection {
                 .build();
         Response response = HTTP_CLIENT.newCall(request).execute();
         int code = response.code();
+        response.close();
         if (code != 200) {
             throw new IOException("heartbeat fail");
         }
     }
 
     public void sendAttachment(String senderIp, String attachmentPath) {
-        RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), new File(attachmentPath));
+        RequestBody fileBody = RequestBody.create(MediaType.parse("232"), new File("attachment/"+attachmentPath));
         RequestBody requestBody = new MultipartBody.Builder().addFormDataPart("file", attachmentPath, fileBody).build();
 
         Request requestPostFile = new Request.Builder()
@@ -62,7 +67,8 @@ public class SenderConnection {
                 .post(requestBody)
                 .build();
         try {
-            HTTP_CLIENT.newCall(requestPostFile).execute();
+            Response response = HTTP_CLIENT.newCall(requestPostFile).execute();
+            response.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

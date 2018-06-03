@@ -56,6 +56,7 @@ public class TaskManager {
 
     public void flushAllTash() {
         List<Map<String, Object>> allExecutableTask = taskDao.selectAllExecutableTask();
+        System.out.println(allExecutableTask);
         try {
             for (Map<String, Object> executableTask : allExecutableTask) {
                 senderConnection.sendTask(executableTask);

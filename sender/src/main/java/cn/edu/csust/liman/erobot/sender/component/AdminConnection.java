@@ -28,6 +28,7 @@ public class AdminConnection {
                 .build();
         Response response = HTTP_CLIENT.newCall(request).execute();
         int code = response.code();
+        response.close();
         if (code != 200) {
             throw new IOException("heartbeat fail");
         }
@@ -41,6 +42,7 @@ public class AdminConnection {
                 .build();
         Response response = HTTP_CLIENT.newCall(request).execute();
         int code = response.code();
+        response.close();
         if (code != 200) {
             throw new IOException("heartbeat fail");
         }

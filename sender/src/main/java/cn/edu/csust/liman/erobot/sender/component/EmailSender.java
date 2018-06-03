@@ -29,7 +29,7 @@ public class EmailSender {
             helper.setSubject(email.getSubject());
             helper.setText(email.getContent());
             if (email.withAttachment()) {
-                File file = new File(email.getAttachmentPath());
+                File file = new File("sender-attachment/"+email.getAttachmentPath());
                 helper.addAttachment(email.getAttachmentName(), file);
             }
             mailSender.send(message);

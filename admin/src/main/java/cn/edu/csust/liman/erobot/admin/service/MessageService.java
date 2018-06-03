@@ -7,6 +7,7 @@ import cn.edu.csust.liman.erobot.admin.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
@@ -52,9 +53,10 @@ public class MessageService {
     }
 
     @PostMapping("/attachment")
-    public Result attachment(@RequestParam("file") CommonsMultipartFile updateFile) throws IOException {
+    public Result attachment(@RequestParam("file") MultipartFile updateFile) throws IOException {
         String randomFileName = UUID.randomUUID().toString();
         File localFile = new File("attachment/" + randomFileName);
+        localFile.createNewFile();
         FileOutputStream localFileStream = new FileOutputStream(localFile);
         localFileStream.write(updateFile.getBytes());
         localFileStream.close();

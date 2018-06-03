@@ -5,6 +5,7 @@ import cn.edu.csust.liman.erobot.sender.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
@@ -42,8 +43,9 @@ public class TaskService {
     }
 
     @PostMapping("/attachment")
-    public void attachment(@RequestParam("file") CommonsMultipartFile updateFile) throws IOException {
-        File localFile = new File(updateFile.getOriginalFilename());
+    public void attachment(@RequestParam("file") MultipartFile updateFile) throws IOException {
+        File localFile = new File("sender-attachment/"+updateFile.getOriginalFilename());
+        localFile.createNewFile();
         FileOutputStream localFileStream = new FileOutputStream(localFile);
         localFileStream.write(updateFile.getBytes());
         localFileStream.close();

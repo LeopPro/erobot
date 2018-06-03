@@ -73,12 +73,12 @@ public interface TaskDao {
     @Update({"update ", E_TASK_TABLE,
             "set name          = #{name},",
             "  cron            = #{cron},",
-            "  subject         = #{subject},",
-            "  content         = #{content},",
-            "  receiver        = #{receiver},",
-            "  attachment_name = #{attachmentName},",
-            "  attachment_path = #{attachmentPath}",
-            "where id = #{is}"})
+            "  subject         = #{email.subject},",
+            "  content         = #{email.content},",
+            "  receiver        = #{email.receiver},",
+            "  attachment_name = #{email.attachmentName},",
+            "  attachment_path = #{email.attachmentPath}",
+            "where id = #{id}"})
     void update(Task task);
 
     @Delete({"delete from", E_TASK_TABLE, " where id = #{id}"})
